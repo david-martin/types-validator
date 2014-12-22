@@ -1,0 +1,29 @@
+{
+  "name": "types-validator",
+  "version": "1.0.0",
+  "description": "Just a value type validator",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodeunit test/*.js",
+    "lint": "jshint **.js",
+    "pretest": "npm run lint",
+    "prepublish": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:david-martin/types-validator.git"
+  },
+  "keywords": [
+    "validation"
+  ],
+  "author": "david.martin@feedhenry.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/david-martin/types-validator/issues"
+  },
+  "homepage": "https://github.com/david-martin/types-validator",
+  "devDependencies": {
+    "jshint": "^2.5.11",
+    "nodeunit": "^0.9.0"
+  }
+}
