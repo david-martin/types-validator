@@ -32,6 +32,7 @@ var schema = {
 };
 
 // validate config against schema
+// NOTE: this will throw an exception if the raw config doesn't match the schema
 var config = types_validator(raw_config, schema);
 
 // returned object exposes an accessor for getting config values,
@@ -54,7 +55,7 @@ var mongo_user = config.get('mongo.user');
 // and retrieve the mongo config (as an object) using:
 var mongo_config = config.get('mongo');
 
-// the following will throw an exception as the key has not beed added to the schema
+// NOTE: the following will throw an exception as the key has not beed added to the schema
 var use_ssl = config.get('use_ssl');
 
 // the schema and the raw config are available on the returned object if needed
