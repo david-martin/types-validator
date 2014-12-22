@@ -64,3 +64,4 @@ config.schema; // ==> schema
 ```
 
 For further examples and usage (and exceptions), see test/*.js
+
