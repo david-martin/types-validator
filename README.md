@@ -1,5 +1,7 @@
 # Types Validator
 
+[![Build Status](https://travis-ci.org/david-martin/types-validator.svg)](https://travis-ci.org/david-martin/types-validator)
+
 A value type validator.
 Validates the types in an object against a schema, exposing them through an accessor.
 
