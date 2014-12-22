@@ -1,5 +1,6 @@
 # Types Validator
 
+[![npm version](https://badge.fury.io/js/types-validator.svg)](http://badge.fury.io/js/types-validator)
 [![Build Status](https://travis-ci.org/david-martin/types-validator.svg)](https://travis-ci.org/david-martin/types-validator)
 
 A value type validator.
