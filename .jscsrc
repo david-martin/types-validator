@@ -1,0 +1,26 @@
+{
+  "preset": "google",
+  "fileExtensions": [".js"],
+  "validateQuoteMarks": {
+    "mark": "'",
+    "escape": true
+  },
+  "requireSpaceAfterKeywords": [],
+  "requireParenthesesAroundIIFE": true,
+  "maximumLineLength": 120,
+  "validateLineBreaks": "LF",
+  "validateIndentation": 2,
+  "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+
+  "disallowKeywords": ["with"],
+  "disallowSpacesInsideObjectBrackets": null,
+  "disallowImplicitTypeConversion": ["string"],
+
+  "safeContextKeyword": "_this",
+
+  "excludeFiles": [
+    "node_modules/**",
+    "report/**",
+    "coverage/**"
+  ]
+}

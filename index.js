@@ -1,46 +1,45 @@
-var assert = require('assert');
 var util = require('util');
 var exceptionMessages = {
-  MISSING_CONFIG : "The Config object is missing!",
-  MISSING_SCHEMA : "The Schema object is missing!",
-  MISSING_CONFIG_SECTION : "Config section %s missing!",
-  MISSING_CONFIG_FROM_SCHEMA : "The config section %s is missing from the validation schema",
-  BAD_CONFIG_TYPE : "Expected '%s' property to be of type '%s', but was '%s' with a value of '%s'"
+  MISSING_CONFIG : 'The Config object is missing!',
+  MISSING_SCHEMA : 'The Schema object is missing!',
+  MISSING_CONFIG_SECTION : 'Config section %s missing!',
+  MISSING_CONFIG_FROM_SCHEMA : 'The config section %s is missing from the validation schema',
+  BAD_CONFIG_TYPE : 'Expected \'%s\' property to be of type \'%s\', but was \'%s\' with a value of \'%s\''
 };
 
-function validateKey(config, schema, schema_key) {
+function validateKey(config, schema, schemaKey) {
   // ensure key is in the schema
-  if (Object.keys(schema).indexOf(schema_key) === -1) {
-    throw util.format(exceptionMessages.MISSING_CONFIG_FROM_SCHEMA, schema_key);
+  if (Object.keys(schema).indexOf(schemaKey) === -1) {
+    throw util.format(exceptionMessages.MISSING_CONFIG_FROM_SCHEMA, schemaKey);
   }
 
-  var schema_type = schema[schema_key];
-  var config_val;
+  var schemaType = schema[schemaKey];
+  var configVal = eval('config.' + schemaKey);
 
-  try {
-    config_val = eval('config.' + schema_key);
-  } catch(e) {
-    throw util.format(exceptionMessages.MISSING_CONFIG_SECTION, schema_key);
-  }
-
-  if (config_val != null) {
-    if (config_val.constructor !== schema_type) {
-      throw util.format(exceptionMessages.BAD_CONFIG_TYPE, schema_key, schema_type, config_val.constructor, config_val);
+  if (configVal != null) {
+    if (configVal.constructor !== schemaType) {
+      throw util.format(exceptionMessages.BAD_CONFIG_TYPE, schemaKey, schemaType, configVal.constructor, configVal);
     }
   } else {
-    throw util.format(exceptionMessages.MISSING_CONFIG_SECTION, schema_key);
+    throw util.format(exceptionMessages.MISSING_CONFIG_SECTION, schemaKey);
   }
+
+  return configVal;
 }
 
 function validate (config, schema) {
-  if ('object' !== typeof config) throw exceptionMessages.MISSING_CONFIG;
-  if ('object' !== typeof schema) throw exceptionMessages.MISSING_SCHEMA;
+  if ('object' !== typeof config) {
+    throw exceptionMessages.MISSING_CONFIG;
+  }
+  if ('object' !== typeof schema) {
+    throw exceptionMessages.MISSING_SCHEMA;
+  }
 
   var errors = [];
 
-  Object.keys(schema).forEach(function(schema_key) {
+  Object.keys(schema).forEach(function(schemaKey) {
     try {
-      validateKey(config, schema, schema_key);
+      validateKey(config, schema, schemaKey);
     } catch (e) {
       errors.push(e);
     }
@@ -50,7 +49,6 @@ function validate (config, schema) {
     throw errors.join('\n');
   }
 }
-
 
 // Validates the passed in config against the passed in schema,
 // returning a config object with a getter for config values.
@@ -66,10 +64,7 @@ module.exports = function(config, schema) {
 
     // ensure the requested key in in the validation schema
     get: function(key) {
-      validateKey(config, schema, key);
-
-      return eval('config.' + key);
+      return validateKey(config, schema, key);
     }
   };
 };
-
