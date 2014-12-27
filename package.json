@@ -1,6 +1,6 @@
 {
   "name": "types-validator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Just a value type validator",
   "main": "index.js",
   "scripts": {
