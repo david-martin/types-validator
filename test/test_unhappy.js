@@ -1,11 +1,11 @@
-var types_validator = require('../index.js');
+var typesValidator = require('../index.js');
 
 exports.testNoConfig = function(test) {
   var caught = false;
   var msg;
 
   try {
-    types_validator();
+    typesValidator();
   } catch(e) {
     msg = e;
     caught = true;
@@ -22,7 +22,7 @@ exports.testNoSchema = function(test) {
   var msg;
 
   try {
-    types_validator({});
+    typesValidator({});
   } catch(e) {
     msg = e;
     caught = true;
@@ -39,7 +39,7 @@ exports.testConfigMissing = function(test) {
   var msg;
 
   try {
-    types_validator({}, {
+    typesValidator({}, {
       should_be_in_config: Number
     });
   } catch(e) {
@@ -58,7 +58,7 @@ exports.testConfigTypeMismatchNumber = function(test) {
   var msg;
 
   try {
-    types_validator({
+    typesValidator({
       should_be_a_number: 'a string'
     }, {
       should_be_a_number: Number
@@ -69,7 +69,8 @@ exports.testConfigTypeMismatchNumber = function(test) {
   }
 
   test.ok(caught, 'Expected exception');
-  test.equal(msg, "Expected \'should_be_a_number\' property to be of type \'function Number() { [native code] }\', but was \'function String() { [native code] }\' with a value of \'a string\'");
+  test.equal(msg, "Expected \'should_be_a_number\' property to be of type \'function Number() { [native code] }\', " +
+    "but was \'function String() { [native code] }\' with a value of \'a string\'");
 
   test.done();
 };
@@ -79,7 +80,7 @@ exports.testConfigTypeMismatchString = function(test) {
   var msg;
 
   try {
-    types_validator({
+    typesValidator({
       should_be_a_number: 1
     }, {
       should_be_a_number: String
@@ -90,7 +91,8 @@ exports.testConfigTypeMismatchString = function(test) {
   }
 
   test.ok(caught, 'Expected exception');
-  test.equal(msg, "Expected \'should_be_a_number\' property to be of type \'function String() { [native code] }\', but was \'function Number() { [native code] }\' with a value of \'1\'");
+  test.equal(msg, "Expected \'should_be_a_number\' property to be of type \'function String() { [native code] }\', " +
+    "but was \'function Number() { [native code] }\' with a value of \'1\'");
 
   test.done();
 };
@@ -100,7 +102,7 @@ exports.testConfigTypeMismatchObject = function(test) {
   var msg;
 
   try {
-    types_validator({
+    typesValidator({
       should_be_a_number: 'a string'
     }, {
       should_be_a_number: Object
@@ -111,7 +113,8 @@ exports.testConfigTypeMismatchObject = function(test) {
   }
 
   test.ok(caught, 'Expected exception');
-  test.equal(msg, "Expected \'should_be_a_number\' property to be of type \'function Object() { [native code] }\', but was \'function String() { [native code] }\' with a value of \'a string\'");
+  test.equal(msg, "Expected \'should_be_a_number\' property to be of type \'function Object() { [native code] }\', " +
+    "but was \'function String() { [native code] }\' with a value of \'a string\'");
 
   test.done();
 };
@@ -121,7 +124,7 @@ exports.testConfigTypeMismatchArray = function(test) {
   var msg;
 
   try {
-    types_validator({
+    typesValidator({
       should_be_a_number: 'a string'
     }, {
       should_be_a_number: Array
@@ -132,17 +135,18 @@ exports.testConfigTypeMismatchArray = function(test) {
   }
 
   test.ok(caught, 'Expected exception');
-  test.equal(msg, "Expected \'should_be_a_number\' property to be of type \'function Array() { [native code] }\', but was \'function String() { [native code] }\' with a value of \'a string\'");
+  test.equal(msg, "Expected \'should_be_a_number\' property to be of type \'function Array() { [native code] }\', " +
+    "but was \'function String() { [native code] }\' with a value of \'a string\'");
 
   test.done();
 };
 
 exports.testSchemaMissing = function(test) {
-    var caught = false;
+  var caught = false;
   var msg;
 
   try {
-    types_validator({}, {}).get('extra_config_not_in_schema');
+    typesValidator({}, {}).get('extra_config_not_in_schema');
   } catch(e) {
     msg = e;
     caught = true;
